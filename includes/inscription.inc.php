@@ -1,38 +1,45 @@
 <h1>Inscription</h1>
 <?php
-if(isset($_POST['frmInscription'])){
+    if (isset($_POST['frmInscription'])) {
+        $message = "Je viens du formulaire";
+        
+        $nom = htmlentities(trim($_POST['nom']));
+        $prenom = htmlentities(trim($_POST['prenom']));
+        $mail = htmlentities(trim($_POST['mail']));
 
-$message ="je vien du formuliare ";
-dump($_POST);
-$nom=$_post['nom'];
-$prenom=$_post['prenom'];
-$mail=$_post['mail'];
+        $erreurs = array();
 
-dump($nom);
-dump($prenom);
-dump($mail);
- }
-else
-$message ="je ne vien pas du formulaire";
-echo $message ;
-?>
+        if (mb_strlen($nom) === 0)
+            array_push($erreurs, "Il manque votre nom");
 
-<form action="index.php?page=inscription" method="post">
-    <div>
-        <label for="nom">Nom :</label>
-        <input type="text" id="nom" name="nom" />
-    </div>
-    <div>
-        <label for="prenom">Prénom :</label>
-        <input type="text" id="prenom" name="prenom" />
-    </div>
-    <div>
-        <label for="mail">e-mail :</label>
-        <input type="text" id="mail" name="mail" />
-    </div>
-    <div>
-        <input type="reset" value="Effacer" />
-        <input type="submit" value="Envoyer" />
-    </div>
-    <input type="hidden" name="frmInscription">
-</form>
+        if (mb_strlen($prenom) === 0)
+            array_push($erreurs, "Il manque votre prénom");
+
+        if (mb_strlen($mail) === 0)
+            array_push($erreurs, "Il manque votre e-mail");
+
+        if (count($erreurs)) {
+            $messageErreur = "<ul>";
+
+            for($i = 0 ; $i < count($erreurs) ; $i++) {
+                $messageErreur .= "<li>";
+                $messageErreur .= $erreurs[$i];
+                $messageErreur .= "</li>";
+            }
+    
+            $messageErreur .= "</ul>";
+    
+            echo $messageErreur;
+
+            include './includes/frmInscription.php';
+        }
+
+        else {
+            displayMessage("Pas d'erreurs");
+        }
+    }
+    
+    else {
+        $nom = $prenom = $mail = "";
+        include './includes/frmInscription.php';
+    }
