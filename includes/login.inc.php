@@ -38,7 +38,7 @@
            print_r($_SESSION) ;   
 
            include './includes/frmLogin.php'; 
-            echo 'tout va bien';
+            echo 'tout va binnen';
             header ('location:index.php?page=membre');
         }
     }
