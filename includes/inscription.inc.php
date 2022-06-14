@@ -1,7 +1,6 @@
 <h1>Inscription</h1>
 <?php
     if (isset($_POST['frmInscription'])) {
-        
         $nom = htmlentities(trim($_POST['nom']));
         $prenom = htmlentities(trim($_POST['prenom']));
         $mail = htmlentities(trim($_POST['mail']));
@@ -18,15 +17,15 @@
 
         if (mb_strlen($mail) === 0)
             array_push($erreurs, "Il manque votre e-mail");
+
         elseif (!filter_var($mail, FILTER_VALIDATE_EMAIL))
-        array_push($erreurs, "Votre adresse mail n'est pas conforme");
+            array_push($erreurs, "Votre adresse mail n'est pas conforme");
 
         if (mb_strlen($password1) === 0 || mb_strlen($password2) === 0)
-        array_push($erreurs, "Veuillez saisir votre mot de passe et sa confirmation");
-    
+            array_push($erreurs, "Veuillez saisir votre mot de passe et sa confirmation");
+        
         elseif ($password1 !== $password2)
-        array_push($erreurs, "Vos mots de passe ne sont pas identiques");
-
+            array_push($erreurs, "Vos mots de passe ne sont pas identiques");
 
         if (count($erreurs)) {
             $messageErreur = "<ul>";
@@ -55,8 +54,9 @@
 
 
             displayMessage("Requête OK");
+            }
         }
-    }
+    
     
     else {
         $nom = $prenom = $mail = "";

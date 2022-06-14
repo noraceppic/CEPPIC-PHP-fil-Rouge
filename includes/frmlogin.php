@@ -1,5 +1,6 @@
 <form action="index.php?page=login" method="post">
     <div>
+
         <label for="mail">e-mail:</label>
         <input type="email" id="mail" name="mail" value="<?=$mail?>" />
 
@@ -12,6 +13,7 @@
         <input type="reset" value="Effacer" />
         <input type="submit" value="Envoyer" />
     </div>
+
 
 
     <input type="hidden" name="frmLogin" />
