@@ -39,7 +39,7 @@
 
            include './includes/frmLogin.php'; 
             echo 'tout va bien';
-            header ('location:index.php?page=contact');
+            header ('location:index.php?page=membre');
         }
     }
 
