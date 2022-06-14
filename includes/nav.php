@@ -11,7 +11,7 @@ session_start();
                 ?>
                 <span class="login">
                     <li><a href="index.php?page=logout"><i class="fa fa-sign-out"></i></a></li>
-                    
+                    <li><strong><?=$_SESSION['loginUser'] ?> </strong></li>
                     <?php
 
                       echo strstr($_SESSION['loginUser'], '@', true);
