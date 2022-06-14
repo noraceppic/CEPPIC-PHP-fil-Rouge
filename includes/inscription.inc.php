@@ -20,8 +20,8 @@
 
         elseif (!filter_var($mail, FILTER_VALIDATE_EMAIL))
             array_push($erreurs, "Votre adresse mail n'est pas conforme");
-            
-            if (mb_strlen($password1) === 0 || mb_strlen($password2) === 0)
+
+        if (mb_strlen($password1) === 0 || mb_strlen($password2) === 0)
             array_push($erreurs, "Veuillez saisir votre mot de passe et sa confirmation");
         
         elseif ($password1 !== $password2)
@@ -29,7 +29,6 @@
 
         if (count($erreurs)) {
             $messageErreur = "<ul>";
-            
 
             for($i = 0 ; $i < count($erreurs) ; $i++) {
                 $messageErreur .= "<li>";
@@ -45,32 +44,19 @@
         }
 
         else {
-            $serverName = "localhost";
-            $userName = "root";
-            $userPassword = "";
-            $database = "filrouge";
+            $password = password_hash($password1, PASSWORD_DEFAULT);
 
-            try {
-                $connexion = new PDO("mysql:host=$serverName;dbname=$database", $userName, $userPassword);
-                $connexion->setAttribute(PDO::ATTR_ERRMODE , PDO::ERRMODE_EXCEPTION);
+            $requete = "INSERT INTO utilisateurs (id_utilisateur, nom, prenom, mail, password)
+            VALUES (NULL, '$nom', '$prenom', '$mail', '$password');";
 
-                $requette="INSERT INTO utilisateurs(id_utilisateur, nom, prenom, mail, $password) 
+            $queryInsert = new Sql();
+            $queryInsert->inserer($requete);
 
-                VALUES (NuLL,'$nom','$prenom','$mail','$password');";
-                
 
-                $connexion->exec($requette);
-                displayMessage("rquete OK");
-                
-
-            }
-         
-
-            catch(PDOException $e) {
-                die("Erreur : " . $e->getMessage());
+            displayMessage("Requête OK");
             }
         }
-    }
+    
     
     else {
         $nom = $prenom = $mail = "";
